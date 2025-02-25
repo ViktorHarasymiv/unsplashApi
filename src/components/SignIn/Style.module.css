@@ -1,0 +1,90 @@
+.form_tile {
+    margin-bottom: 20px;
+    
+    width: 100%;
+
+    display: inline-flex;
+
+    justify-content: end;
+
+    align-items: center;
+}
+
+.form {
+    display: inherit;
+    
+    align-items: center;
+    column-gap: 20px;
+}
+
+.custom_search {
+    font-size: 1em;
+    letter-spacing: .1em;
+    height: 35px;
+
+    outline: none !important;
+
+    background-color: transparent;
+
+    border-bottom: 1px solid #ffbb00 !important;
+
+    transition: all .2s ease-in;
+}
+
+.custom_search:hover {
+    outline: none !important;
+    border-bottom: 1.5px solid #ffbb00;
+}
+
+.custom_search:focus {
+    outline: none !important;
+    border: 1px solid #ffbb00; 
+}
+
+.signUp {
+    display: inherit;
+
+    gap: 20px;
+
+    align-items: center;
+}
+
+
+.text_content {
+    font-size: 1.2em;
+}
+
+.name_value {
+    color: #ffbb00;
+}
+
+@media screen and (max-width: 767.98px) {
+    .form_tile {
+        overflow: hidden;
+
+        height: 28px;
+
+        justify-content: center;
+    }
+
+    .form {
+        height: 100%;
+    }
+
+    .custom_search {
+        font-size: 0.8em;
+
+        height: 27px;
+    }
+
+    .text_content {
+      font-size: .7em;
+    }
+
+    .button {
+        line-height: 1;
+        font-size: .7em;
+
+        text-wrap: nowrap;
+    }
+}

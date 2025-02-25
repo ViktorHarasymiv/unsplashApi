@@ -1,0 +1,15 @@
+.search {
+    margin-bottom: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+.search input {
+    font-size: .9em;
+    letter-spacing: .1em;
+
+    width: 260px;
+    height: 35px;
+}
