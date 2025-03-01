@@ -4,7 +4,7 @@ const UserContext = createContext();
 
 export const useUser = () => use(UserContext);
 
-export const UserProvider = ({ children }) => {
+export const UserProvider = ({ children}) => {
 
   const [ isLoggedIn, setIsLoggedIn ] = useState(false);
   const [ username, setUsername ] = useState(() => {
@@ -20,7 +20,7 @@ export const UserProvider = ({ children }) => {
   
     // У протилежному випадку повертаємо
     // яке-небудь значення за замовчуванням
-    return "";
+    return;
   });
 
   useEffect(() => {
@@ -51,8 +51,8 @@ export const UserProvider = ({ children }) => {
   };
 
   return (
-    <UserContext value={{ isLoggedIn, username, logIn, logOut, setUsername , logIn }}>
+    <UserContext value={{ isLoggedIn, username, logIn, logOut, setUsername }}>
       {children}
     </UserContext>
-  );
-};
+  )
+}

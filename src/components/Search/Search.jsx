@@ -2,22 +2,18 @@ import React from 'react'
 
 import css from "./Style.module.css";
 
+import { IoIosSearch } from "react-icons/io";
+
 function Search({onSearch}) {
 
     const handleSubmit = (evt) => {
         evt.preventDefault();
+
         const form = evt.target;
     
-        const topic = form.elements.topic.value;
+        const SEARCH_VALUE = form.elements.SEARCH_VALUE.value;
     
-        // Якщо текстове поле порожнє, виводимо повідомлення
-        // і припиняємо виконання функції.
-        if (form.elements.topic.value.trim() === "") {
-          alert("Please enter search term!");
-          return;
-        }
-    
-        onSearch(topic);
+        onSearch(SEARCH_VALUE);
 
         form.reset();
       }
@@ -25,8 +21,11 @@ function Search({onSearch}) {
 
   return (
     <form onSubmit={handleSubmit} className={css.search}>
-      <input type="text" name="topic" placeholder="Пошук статей..." />
-      <button >Пошук</button>
+      <div className={css.search_tile}>
+      <IoIosSearch className={css.icons_search} />
+      <input type="search" name="SEARCH_VALUE" placeholder="Search photos and illustrations" className={css.search_input} />
+      </div>
+      <button className={css.search_button}>Search</button>
     </form>
   )
 }

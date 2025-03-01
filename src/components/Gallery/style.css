@@ -1,0 +1,28 @@
+.button_nav {
+    padding: 2px 10px;
+    opacity: .95;
+
+    background-color: #fff;
+    border-color: #000;
+
+}
+
+
+.button_nav:hover {
+    opacity: 1;
+}
+
+.button_nav:hover svg {
+    fill: #000;
+}
+
+.button_nav.active {
+    background-color: #f15151;
+    border-color: #f15151;
+    
+    opacity: 1;
+}
+
+.button_nav.active svg{
+    fill: #fff;
+}

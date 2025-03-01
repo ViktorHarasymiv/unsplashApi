@@ -1,0 +1,25 @@
+.header_container {
+    margin-bottom: 30px;
+    width: 100%;
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.user_form_block {
+    margin-bottom: 30px;
+
+    width: 100%;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    gap: 50px;
+}
+
+.set_search_title {
+    font-size: 2em;
+}

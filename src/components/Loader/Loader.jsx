@@ -6,9 +6,9 @@ function Loader({loading}) {
   return (
     <BeatLoader
         style={
-         {position: "absolute", top: '50%'}
+         {position: "absolute", top: '50%', right: '50%'}
         }
-        color={`#fff`}
+        color={`#000`}
         loading={loading}
         size={8}
         aria-label="Loading Spinner"

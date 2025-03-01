@@ -1,0 +1,256 @@
+.containerGallery {
+    margin: 0 auto;
+    max-width: 1280px;
+}
+
+.gallery {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+
+    grid-column-gap: 20px;
+    grid-row-gap: 30px;
+}
+
+.gallery_list {
+    position: relative;
+
+    width: 400px;
+    height: 270px;
+    
+    display: flex;
+    align-self: start;
+    justify-content: center;
+
+}
+
+.gallery_list:nth-child(3n) {
+    height: 570px;
+    
+    grid-row: span 2 / span 2;
+}
+
+.gallery_image {
+    width: 400px !important;
+    height: 100% !important;
+
+    object-fit: cover;
+}
+
+/*  BACKDROP  */
+
+.gallery_backdrop {
+    position: absolute;
+    
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    
+    display: flex;
+    align-items: end;
+
+    background-color: rgba(0, 0, 0, .3);
+
+    visibility: hidden;
+    opacity: 0;
+
+    transition: all .3s ease-in;
+}
+
+.gallery_list:hover .gallery_backdrop {
+  visibility: visible; 
+  opacity: 1;
+}
+
+.backdrop_buttons {
+    margin-bottom: 20px;
+    margin-right: 20px;
+    width: 100%;
+
+    display: flex;
+    align-items: end;
+    justify-content: end;
+
+    gap: 7px;
+}
+
+.button_nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(transparent 50%, rgba(10, 20, 30, .06) 100%), rgba(246, 246, 246, .98);
+}
+
+.button_nav svg{
+    fill: #767676;
+}
+
+.button_nav:hover {
+    background-color: #e25c3d;
+    border-color: #e25c3d;
+}
+
+.button_nav .active {
+    background-color: #e25c3d;
+    border-color: #e25c3d;
+}
+
+.button_nav:hover svg{
+    fill: #fff;
+}
+
+
+/* MODAL  */
+
+.modal_close {
+    z-index: 9999;
+
+    padding: 0;
+
+    position: absolute;
+
+    top: 0;
+    right: 17px;
+
+    background-color: transparent;
+    border: none;
+    box-shadow: none;
+
+    font-size: 28px;
+}
+
+.modal_close:hover,
+.modal_close:focus {
+    background-color: transparent;
+    border: none;
+    box-shadow: none;
+}
+
+.modal_close:hover svg {
+    stroke: #e25c3d;
+    fill: #e25c3d;
+}
+
+.modal_wrapper {
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.modal_image {
+  margin-top: 30px;
+
+  cursor: zoom-in;
+
+  height: 75vh;
+
+  object-fit: fill;
+}
+
+.modal_user_tile {
+    display: flex;
+}
+
+.modal_user {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    gap: 13px;
+}
+
+.modal_user_name {
+    position: relative;
+}
+
+.user_title_content {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+
+    font-size: .9em;
+    font-weight: 500;
+}
+
+.modal_photographer {
+    border-radius: 50%;
+
+    width: 34px;
+    height: 34px;
+}
+
+.modal_user_location {
+    font-size: .9em;
+}
+
+/*  IMAGE  */
+
+.modal_image {
+    margin-bottom: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.galleryItem {
+    position: relative;
+}
+
+.alt_tile {
+    width: 100%;
+    height: 60px;
+
+    position: absolute;
+
+    bottom: 30px;
+
+    right: 50%;
+    transform: translateX(50%);
+
+    background-color: rgba(0, 0, 0, .2);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.alt_text {
+    text-align: center;
+
+    color: #fff;
+
+    font-size: 1em;
+
+    text-transform: capitalize;
+}
+
+
+/*  INFO COLUMN  */
+
+.modal_column_info {
+    display: flex;
+
+    gap: 30px;
+}
+
+.info_value_box {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    gap: 5px;
+}
+
+.info_title {
+    font-size: .9em;
+    letter-spacing: .1em;
+}
+
+.info_value {
+    font-size: .85em;
+    font-weight: 500;
+}

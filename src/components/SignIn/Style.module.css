@@ -1,61 +1,68 @@
-.form_tile {
-    margin-bottom: 20px;
-    
+.form_tile {  
     width: 100%;
-
-    display: inline-flex;
-
-    justify-content: end;
-
-    align-items: center;
 }
 
 .form {
-    display: inherit;
-    
+    display: flex;
     align-items: center;
-    column-gap: 20px;
+    justify-content: space-between;
+
+    column-gap: 30px;
 }
 
 .custom_search {
     font-size: 1em;
     letter-spacing: .1em;
-    height: 35px;
 
-    outline: none !important;
+    height: var(--input-size);
 
+    
     background-color: transparent;
-
-    border-bottom: 1px solid #ffbb00 !important;
-
+    
+    border-bottom: 1px solid #767676;
+    
+    outline: none !important;
     transition: all .2s ease-in;
 }
 
 .custom_search:hover {
     outline: none !important;
-    border-bottom: 1.5px solid #ffbb00;
 }
 
 .custom_search:focus {
     outline: none !important;
-    border: 1px solid #ffbb00; 
 }
 
 .signUp {
-    display: inherit;
+    width: 100%;
 
-    gap: 20px;
+    display: flex;
+    align-items: start;
 
-    align-items: center;
+    justify-content: space-between;
+
+    gap: 50px;
 }
 
+.user_tile {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+
+    row-gap: 17px;
+}
 
 .text_content {
-    font-size: 1.2em;
+    font-size: 1em;
 }
 
 .name_value {
-    color: #ffbb00;
+    margin: 0;
+
+    margin-top: 5px;
+
+    font-size: 1.2em;
+    text-wrap: nowrap;
 }
 
 @media screen and (max-width: 767.98px) {
