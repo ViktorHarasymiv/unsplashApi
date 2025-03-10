@@ -21,12 +21,10 @@ const customStyles = {
   },
   
   content: {
-    overflow: 'hidden',
-
     position: 'absolute',
     zIndex: 1021,
-    width: '85vw',
-    height: '90vh',
+    width: '80vw',
+    height: '88vh',
     top: '48%',
     left: '50%',
     right: 'auto',
@@ -34,7 +32,7 @@ const customStyles = {
     marginRight: '-50%', 
     transform: 'translate(-50%, -50%)',
 
-    padding: '10px 20px',
+    padding: '10px 20px 20px',
     borderRadius: '8px',
 
     

@@ -13,7 +13,7 @@ export const SignIn = ({favorites, openPage, current, closeCurrent, fullScreen, 
     
   return (
       <div className={css.form_tile}>
-    {!loggedIn ? ( 
+    {!loggedIn ? (
       
     <form onSubmit={logIn} className={css.form}>
       <input type="text" name="name" placeholder="Name" autoComplete="none" required className={css.custom_search}/>

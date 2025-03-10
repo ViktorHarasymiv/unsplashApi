@@ -88,6 +88,7 @@ button {
   align-items: center;
 
   font-size: 1em;
+  color: inherit;
   font-weight: inherit;
   letter-spacing: .2em;
 
@@ -134,6 +135,8 @@ input[type="text" i] {
   padding-block: 0;
 
   transition: backgroundColor 2s linear;
+
+  color: inherit;
 }
 
 /* SEARCH INPUT */
@@ -145,6 +148,8 @@ input[type="search" i] {
 
   font-size: .87em;
   letter-spacing: .1em;
+
+  color: inherit;
 
   list-style: none;
   list-style-image: none;

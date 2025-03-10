@@ -4,10 +4,6 @@
   border-bottom: 1px solid #f5f2f2;
 } 
 
-.swiper-wrapper {
-  padding-left: 100px !important;
-}
-
 .swiper-slide {
   padding-bottom: 5px;
 
@@ -59,4 +55,26 @@
 .change_input {
   border: none;
   box-shadow: none;
+
+  font-size: .9em;
+}
+
+@media screen and (max-width: 767.98px) {
+  .swiper-slide:not(:last-child) {
+    margin-right: 5px !important;
+  }
+
+  .change_input {
+    font-size: .85em;
+  }
+}
+
+@media screen and (max-width: 599.98px) {
+  .swiper-slide:not(:last-child) {
+    margin-right: 28px !important;
+  }
+  .change_input {
+    padding: 0.05em .9em;
+    font-size: .7em;
+  }
 }

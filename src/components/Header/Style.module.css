@@ -16,13 +16,16 @@
     width: 100%;
 
     display: flex;
-    justify-content: space-between;
 
     gap: 50px;
 }
 
 .set_search_title {
+    max-width: 100%;
     font-size: 2em;
+
+    flex-grow: 1;
+    order: 3;
 }
 
 .logo {
@@ -45,7 +48,18 @@
     }
 
     .user_form_block {
+        justify-content: space-between;
         flex-wrap: wrap;
         gap: 30px 5px;
+    }
+
+    .set_search_title {
+      flex-grow: 0;
+    }
+}
+
+@media screen and (max-width: 599.98px) {
+    .set_search_title {
+        font-size: 1.7em;
     }
 }

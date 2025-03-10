@@ -33,8 +33,25 @@ function SwiperNav({onSearch}) {
 
   return (
     <Swiper
-      slidesPerView={8}
-      spaceBetween={30}
+    breakpoints={{
+      320: {
+        slidesPerView: 3,
+        spaceBetween: 0,
+      },
+      430: {
+        slidesPerView: 4,
+      },
+      640: {
+        slidesPerView: 5,
+        spaceBetween: 10,
+      },
+      1024: {
+        slidesPerView: 9,
+        spaceBetween: 80,
+      },
+    }}
+      slidesPerView={9}
+      spaceBetween={50}
       navigation={true}
       freeMode={true}
       modules={[FreeMode, Navigation]}
