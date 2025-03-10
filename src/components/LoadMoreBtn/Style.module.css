@@ -1,0 +1,13 @@
+.load_button {
+    margin: 60px auto 0 auto;
+
+    padding: 20px 40px;
+
+    max-width: 180px;
+
+    width: 100%;
+
+    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+
+    transition: all .2s ease;
+}

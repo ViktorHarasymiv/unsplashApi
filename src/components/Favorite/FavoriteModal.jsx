@@ -1,18 +1,15 @@
-import React, {useState} from 'react';
+import React, { useEffect } from 'react';
 import Modal from "react-modal";
 
-import css from './Style.module.css'
+import css from './../Gallery/Style.module.css'
 
 import { IoCloseOutline } from "react-icons/io5";
-import { FaHeart } from "react-icons/fa";
 import { RxExternalLink } from "react-icons/rx";
-import { BiBorderRadius } from 'react-icons/bi';
-import { CgOverflow } from 'react-icons/cg';
 
 const customStyles = {
   overlay: {
     position: 'fixed',
-    zIndex: 1020,
+    zIndex: 1021,
     top: 0,
     left: 0,
     width: '100vw',
@@ -25,7 +22,9 @@ const customStyles = {
   
   content: {
     overflow: 'hidden',
+
     position: 'absolute',
+    zIndex: 1021,
     width: '85vw',
     height: '90vh',
     top: '48%',
@@ -44,40 +43,51 @@ const customStyles = {
     zIndex: 1000,
   }};
 
-function ModalPage({isOpen, setClose, image }) {
+  const FavoriteModal = ({isOpen, setClose, image })  => {
 
+  window.addEventListener('keyup' , (e) => {
+    if(isOpen) {
+      if (e.key === 'Escape' || e.key === 'Esc') {
+        setClose();
+      }
+    }
+    return;
+      });
 
   return (
       <Modal
         isOpen={isOpen}
+        onClose={setClose}
         ariaHideApp={false}
         style={customStyles}
         contentLabel="Example Modal"
       >
         {image && (
         <div className={css.modal_wrapper}>
-          <button onClick={setClose} className={css.modal_close}>
-            <IoCloseOutline />
-          </button>
-          <div className={css.modal_user_tile}>
-             <a  href={image.user.social.portfolio_url} target='_blank' className={css.modal_user}>
-                <img src={image.user.profile_image.large} alt='' className={css.modal_photographer}/>
+         <button onClick={setClose} className={css.modal_close}>
+           <IoCloseOutline />
+         </button>
+        <div className={css.modal_user_tile}>
+             <a  href={image.social} target='_blank' className={css.modal_user}>
+                <img src={image.large} alt='' className={css.modal_photographer}/>
                 <div className={css.user_title_content}>
-                 <span className={css.modal_user_name}>{image.user.first_name}<RxExternalLink style={{fontSize: '9px', marginLeft: '2px', position: 'absolute', top: '-2px'}} /></span>
-                 <span className={css.modal_user_location}>{image.user.location}</span>
+                 <span className={css.modal_user_name}>{image.name}<RxExternalLink style={{fontSize: '9px', marginLeft: '2px', position: 'absolute', top: '-2px'}} /></span>
+                 <span className={css.modal_user_location}>{image.location}</span>
                 </div>
              </a>
              {/* <button onClick={handleSubmit} className={activeButton === false ? "button_nav" : "button_nav active"}><FaHeart style={{fontSize: '16px'}}/></button> */}
-          </div>
+        </div>
+
         <div className={css.modal_image}>
-          <a className={css.galleryItem} href={image.urls.full} target='_blank'>
-            <img src={image.urls.regular} alt={image.alt_description} loading='lazy' className={css.modal_image} />
+          <a className={css.galleryItem} href={image.full} target='_blank'>
+            <img src={image.regular} alt={image.alt} loading='lazy' className={css.modal_image} />
             <div className={css.alt_tile}>
-              <div className={css.alt_text}>{image.alt_description}</div>
+              <div className={css.alt_text}>{image.alt}</div>
             </div>
           </a>
         </div>
-          <div className={css.modal_column_info}>
+
+        <div className={css.modal_column_info}>
               <div className={css.info_value_box}>
                 <span className={css.info_title}>Views</span>
                 <p className={css.info_value}>{image.width}</p>
@@ -88,13 +98,13 @@ function ModalPage({isOpen, setClose, image }) {
               </div>
               <div className={css.info_value_box}>
                 <span className={css.info_title}>Likes</span>
-                <p className={css.info_value}>{image.likes}</p>
+                <p className={css.info_value}>{image.like}</p>
               </div>
-          </div>
+        </div>
         </div>
         )}
       </Modal>
   )
 }
 
-export default ModalPage
+export default FavoriteModal

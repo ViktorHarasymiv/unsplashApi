@@ -6,14 +6,14 @@ export const useUser = () => use(UserContext);
 
 export const UserProvider = ({ children}) => {
 
-  const [ isLoggedIn, setIsLoggedIn ] = useState(false);
+  const [ loggedIn, setIsLoggedIn ] = useState(false);
   const [ username, setUsername ] = useState(() => {
 
     const savedData = window.localStorage.getItem("saved-data");
 
     // Якщо там щось є, повертаємо це
     // значення як початкове значення стану
-    if (savedData !== '') {
+    if (savedData !== '' && savedData !== "undefined" && savedData !== null ) {
       setIsLoggedIn(true)
       return savedData;
     }
@@ -51,7 +51,7 @@ export const UserProvider = ({ children}) => {
   };
 
   return (
-    <UserContext value={{ isLoggedIn, username, logIn, logOut, setUsername }}>
+    <UserContext value={{ loggedIn, username, logIn, logOut, setUsername }}>
       {children}
     </UserContext>
   )

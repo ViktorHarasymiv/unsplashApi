@@ -1,6 +1,6 @@
 .button_nav {
     padding: 2px 10px;
-    opacity: .95;
+    opacity: .9;
 
     background-color: #fff;
     border-color: #000;
@@ -9,11 +9,14 @@
 
 
 .button_nav:hover {
+    background-color: #f15151;
+    border-color: #f15151;
+    
     opacity: 1;
 }
 
 .button_nav:hover svg {
-    fill: #000;
+    fill: #fff;
 }
 
 .button_nav.active {

@@ -141,7 +141,7 @@ input[type="text" i] {
 input[type="search" i] {
 
   width: 100%;
-  height: var(--input-size);
+  height: 100%;
 
   font-size: .87em;
   letter-spacing: .1em;
@@ -171,7 +171,14 @@ input[type="search" i]:focus {
  }
 
 .container {
+  margin:  0 auto;
+
+  display: flex !important ;
+  flex-direction: column;
+  justify-content: center !important;
+  align-items: center !important;
+
   position: relative;
   
-  max-width: 100%;
+  max-width: 1640px;
 }

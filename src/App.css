@@ -3,3 +3,15 @@
   margin: 0 auto;
   padding: 1.5rem 1rem;
 }
+
+::-webkit-scrollbar {
+  width: 9px; 
+}
+
+::-webkit-scrollbar-track {
+  background: #fff; 
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 1 );
+}

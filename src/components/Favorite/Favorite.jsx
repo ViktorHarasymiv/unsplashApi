@@ -3,11 +3,12 @@ import React from 'react'
 
 import Modal from "react-modal";
 
-import cssGallery from "./../Gallery/Style.module.css";
 import css from "./Style.module.css";
 
 import { FaHeart } from "react-icons/fa";
 import { IoCloseOutline } from "react-icons/io5";
+
+import NonImage from './images/noImages.png'
 
 import FavoritedImage from './../Favorite/FavoritedImage';
 
@@ -23,45 +24,27 @@ const customStyles = {
     display: 'flex',
     alignItems: 'start',
     justifyContent: 'end',
-  },
-  content: {
-    padding: '10px 15px',
-    inset: 'auto',
-
-    position: 'absolute',
-
-    top: '0',
-    right: '0',
-
-    width: '900px',
-    height: '100vh',
-
-    borderRadius: 'none',
-
-    zIndex: 1000,
-  },
+  }
 };
 
 
-function Favorite({data, openPage, current, closePage}) {
+function Favorite({data, openPage, current, closePage, fullScreen, OnDelete, activeButtons}) {
 
-    const openPageFavorite = (e) => {
-        openPage(true);
-        return;
-    }
-
-    const closePageFavorite = (e) => {
-        closePage(false);
-        return;
-    }
+    window.addEventListener('keyup' , (e) => {
+      if(openPage) {
+        if (e.key === 'Escape' || e.key === 'Esc') {
+          closePage();  
+      }
+      return;
+      }});
 
   return (
     <div className={css.overlay}>
 
-        <div onClick={openPageFavorite} className={css.like}>
-          <span>Favorite</span> 
-          <div className={css.like_value}><FaHeart style={{fontSize: '14px'}}/>
-          {data.length > 0 && <span style={{fontSize: ".7em"}}> {data.length} </span> }
+        <div onClick={openPage} className={css.like}>
+          <div className={css.like_value}>
+            <p>My collection</p>
+            <FaHeart style={{fontSize: '14px'}}/> {data.length > 0 && <span style={{fontSize: ".7em"}}> {data.length} </span> }
           </div>
         </div>
         
@@ -69,20 +52,23 @@ function Favorite({data, openPage, current, closePage}) {
             isOpen={current}
             ariaHideApp={false}
             style={customStyles}
+            className={css.favorite_modal_content}
             contentLabel="Favorite modal page"
           >
             <div className={css.favorite_navigation}>
               <span className={css.favorite_title}>Your collection</span>
-              <button onClick={closePageFavorite} className={css.modal_close}>
+              <button onClick={closePage} className={css.modal_close}>
                 <IoCloseOutline />
               </button>
             </div>
 
-        <ul className={css.favorite_gallery}>
-          {data.map((item , index) => (
-            <FavoritedImage key={index} items={item}></FavoritedImage>
-          ))}
-        </ul>
+            { data < 1 && <img src={NonImage} width="500px" height="330px" alt="Non Photos" className={css.non_images}/>}
+
+            <ul className={css.favorite_gallery}>
+                  {data.map((item , index) => (
+                  <FavoritedImage key={index} imageTile={item}  fullScreen={fullScreen} OnDelete={OnDelete} activeButtons={activeButtons}></FavoritedImage>
+                ))}
+            </ul>
         </Modal>
     </div> 
   )

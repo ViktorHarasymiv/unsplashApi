@@ -5,6 +5,7 @@ import { useState, useEffect} from 'react'
 import { fetchArticlesWithTopic } from "./components/Gallery/GalleryApi";
 
 // STYLE
+
 import toast, { Toaster } from 'react-hot-toast';
 
 import './App.css'
@@ -19,36 +20,65 @@ import Header from './components/Header/Header';
 import ArticleList from './components/Gallery/Gallery';
 import Loader from './components/Loader/Loader';
 // import Error from './components/Error/Error';
+
 import ModalPage from './components/Gallery/Modal';
+import FavoriteModal from './components/Favorite/FavoriteModal';
+
+import LoadMore from './components/LoadMoreBtn/LoadMoreBtn'
 
 
 // RENDER FUNCTION
 
-function App() {
+  function App() {
 
-  // useState
+// useState
 
   const [images, setImages] = useState([]); // Стан для зберігання списку зображень
-  const [articles, setArticles] = useState([]); // Стан для зберігання масиву даних 
-  const [loading, setLoading] = useState(true); // Стан для зберігання прелоудера підгрузки апі
+
+// API
+  
+  const [page, setPage] = useState(1); // Стан для зберігання поточної сторінки результатів
+  const [totalPage, setTotalPage] = useState(0); // Стан для зберігання поточної сторінки результатів
+  const [search, setSearch] = useState(""); // Стан для зберігання поточного пошукового запиту
+  
+  
+// Loading && Error
+  
+  const [loading, setLoading] = useState(false); // Стан для зберігання прелоудера підгрузки апі
   const [error, setError] = useState(false);
 
-  const [modalIsOpen, setModalIsOpen] = useState(false); // Стан для відображення/приховування модального вікна
-  const [selectedImage, setSelectedImage] = useState(null); // Стан для зберігання вибраного зображення для модального вікна
+  const [loadingMore, setLoadingMore] = useState(false); // Стан для відображення завантаження додаткового контенту
+
+// Favorite array
 
   const [like, setLike] = useState(FAVORITE_DATA);
+
+  const [ activeButton, setActiveButton ] = useState(false);
+
+// Image info modal page
+
   const [openPage, setOpenPage] = useState(false);
+  const [modalIsOpen, setModalIsOpen] = useState(false); // Стан для відображення/приховування модального вікна
+  const [selectedImage, setSelectedImage] = useState(null); // Стан для зберігання вибраного зображення для модального вікна
+  const [articles, setArticles] = useState([]); // Стан для зберігання масиву даних 
+
+// Favorite info modal page
+
+  const [modalIsOpenF, setModalIsOpenF] = useState(false); // Стан для відображення/приховування модального вікна
+  const [modalIsOpenFav, setModalIsOpenFav] = useState(false); // Стан для відображення/приховування модального вікна
+  const [selectedImageF, setSelectedImageF] = useState({}); // Стан для зберігання вибраного зображення для модального вікна
+  const [openPageF, setOpenPageF] = useState(false);
+
 
 // useEffect 
 
   useEffect(() => {
     async function fetchArticles() {
-
       try {
-        const data = await fetchArticlesWithTopic("random");
-
-        setLoading(false);
-        setImages([]);
+        const data = await fetchArticlesWithTopic("FrontEnd" , 1);
+        setLoading(true);
+        setLoadingMore(false);
+        setPage(1);
         setArticles(data.results);
         setImages(data.results);
 
@@ -63,11 +93,11 @@ function App() {
 
     fetchArticles();
   }, []);
-
   
 // MODAL FULL IMAGE BAR
 
   const handleSearch = async (SEARCH_VALUE) => {
+    setLoadingMore(false);
 
     if(SEARCH_VALUE === '') {
       toast.error("The search field cannot be empty!");
@@ -75,45 +105,78 @@ function App() {
     }
      
     try {
-
       setArticles([]);
+      setSearch(SEARCH_VALUE);
+      setPage(1);
+
       setError(false);
       setLoading(true);
       
-      const data = await fetchArticlesWithTopic(SEARCH_VALUE);
+      const data = await fetchArticlesWithTopic(SEARCH_VALUE, 1);
+      setArticles(data.results);
+      setTotalPage(data.total_pages);
+      
       
       if (!data.total) {
-        toast(
-          "Sorry, we have not found the photos for your request. Try to write it differently.",
-          {
-            duration: 5000,
-          }
-        );
+        toast("Sorry, we have not found the photos for your request. Try to write it differently.", {duration: 5000 })
         return;
       }
 
-      setArticles(data.results);
-      toast.success(`Wow! We found ${data.total} pictures`); 
+      toast.success(`Wow! We found ${data.total} pictures`);
+       
+      } catch (error) {
+       toast.error("This didn't work.")
+       setError(true);
+      } finally {
 
-    } catch (error) {
-      toast.error("This didn't work.")
-      setError(true);
-    } 
+       setLoadingMore(true);
+       setLoading(false);
+      }
+  }
 
-    finally {
-      setLoading(false);
-    }
+  const loadMore = async () => {
+        setLoading(true);
+        setLoadingMore(false);
+
+        if(page === totalPage) {
+          setLoadingMore(false);
+        }
+
+        try {
+           setLoadingMore(false);
+            const nextLoad = page + 1;
+            const data = await fetchArticlesWithTopic(search , nextLoad);
+            setArticles((prevImages) => {
+              return [...prevImages, ...data.results];
+            });
+            setPage(nextLoad);
+    
+        } catch(error) {
+            toast.error("This didn't work.")
+            setError(true);
+    
+        } finally {
+          setLoading(false);
+          setLoadingMore(true);
+        }
   }
 
   const openModal = (image) => {
     setSelectedImage(image);
     setModalIsOpen(true);
-    console.log(modalIsOpen);
   }
   
   const closeModal = () => {
     setModalIsOpen(false);
-    console.log(modalIsOpen);
+  }
+
+  const openModalFavorite = (item) => {
+    setSelectedImageF(item)
+    setModalIsOpenF(true);
+  }
+
+  const closeModalF = () => {
+    setModalIsOpenF(false);
   }
 
   // LIKE PAGE
@@ -128,6 +191,11 @@ function App() {
     const updatedItems = like.filter(item => item.id !== itemId.id);
     setLike(updatedItems);
   }
+  
+  const onDeleteFromFav = (itemId) => {
+    const updatedItems = like.filter(item => item.id !== itemId.id);
+    setLike(updatedItems);
+  }
 
   const openPageHandle = () => {
     setOpenPage(true);
@@ -136,23 +204,58 @@ function App() {
   const closePageHandle = () => {
     setOpenPage(false);
   }
-  
+
+  const openFullScreen = (imgItem, imageTile) => {
+    
+    if(imgItem) {
+        const INDEX_ITEM = imgItem.dataset.id;
+        const FIND_ID = articles.find(image => image.id === INDEX_ITEM);
+
+        if(FIND_ID) {
+          setModalIsOpen(true);
+          openModal(FIND_ID);
+        }
+      }
+  }
+
+  const openFullScreenFavorite = (imgItem, imageTile) => {
+    
+    if(imgItem) {
+        const INDEX_ITEM = imgItem.dataset.id;
+        const FIND_ID = like.find(image => image.id === INDEX_ITEM);
+
+        if(FIND_ID) {
+          setModalIsOpenFav(true);
+          openModalFavorite(FIND_ID);
+        }
+      }
+  }
+
+  const changeActiveButton = active => {
+    setActiveButton(active)
+  }
   
 
   return (
-    <>      
-    {loading && <Loader/>}
-    <Toaster position="top-left" reverseOrder={false} />
+    <>
 
-    <Header favorites={like} current={openPage} closeCurrent={closePageHandle} openPage={openPageHandle} handleSearch={handleSearch} ></Header>
+    { loading && <Loader/> }
+
+     <Toaster position="top-left" reverseOrder={false} />
+
+     <Header favorites={like} current={openPage} closeCurrent={closePageHandle} openPage={openPageHandle} handleSearch={handleSearch} fullScreenFavorites={openFullScreenFavorite} OnDelete={onDeleteFromFav}  activeButtons={changeActiveButton} ></Header>
 
     <main>
-    <ArticleList items={articles} setOpen={openModal} setModal={setModalIsOpen} liked={isLiked} onDelete={onDelete}> </ArticleList>
+
+     <ArticleList items={articles} setOpen={openModal} setModal={setModalIsOpen} liked={isLiked} onDelete={onDelete} fullScreen={openFullScreen} active={activeButton} activeButtons={changeActiveButton} favorites={like}></ArticleList>
+
+     { loadingMore && <LoadMore loadMore={loadMore} />}
+
     </main>
 
-    <ModalPage setOpen={openModal} setClose={closeModal}  isOpen={modalIsOpen} image={selectedImage} like={isLiked} setDelete={onDelete}></ModalPage>
+     <ModalPage setOpen={openModal} setClose={closeModal}  isOpen={modalIsOpen} image={selectedImage} like={isLiked} setDelete={onDelete}></ModalPage>
 
-
+     <FavoriteModal setOpen={openModalFavorite} isOpen={modalIsOpenF}  setClose={closeModalF} dataFavorite={like} image={selectedImageF}></FavoriteModal>
     </>
   )
 }
