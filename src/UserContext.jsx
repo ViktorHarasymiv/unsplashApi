@@ -1,23 +1,22 @@
-import { createContext, use, useState , useEffect} from "react";
+import { createContext, use, useState, useEffect } from "react";
 
 const UserContext = createContext();
 
 export const useUser = () => use(UserContext);
 
-export const UserProvider = ({ children}) => {
+export const UserProvider = ({ children }) => {
+  const [loggedIn, setIsLoggedIn] = useState(false);
 
-  const [ loggedIn, setIsLoggedIn ] = useState(false);
-  const [ username, setUsername ] = useState(() => {
-
+  const [username, setUsername] = useState(() => {
     const savedData = window.localStorage.getItem("saved-data");
 
     // Якщо там щось є, повертаємо це
     // значення як початкове значення стану
-    if (savedData !== '' && savedData !== "undefined" && savedData !== null ) {
-      setIsLoggedIn(true)
+    if (savedData !== "" && savedData !== "undefined" && savedData !== null) {
+      setIsLoggedIn(true);
       return savedData;
     }
-  
+
     // У протилежному випадку повертаємо
     // яке-небудь значення за замовчуванням
     return;
@@ -40,19 +39,19 @@ export const UserProvider = ({ children}) => {
     }
 
     setIsLoggedIn(true);
-    setUsername(setName)
+    setUsername(setName);
 
     form.reset();
-  }
+  };
 
   const logOut = () => {
     setIsLoggedIn(false);
-    setUsername('');
+    setUsername("");
   };
 
   return (
     <UserContext value={{ loggedIn, username, logIn, logOut, setUsername }}>
       {children}
     </UserContext>
-  )
-}
+  );
+};
