@@ -100,33 +100,40 @@ function App() {
     }
 
     try {
-      page === totalPage ? setLoadingMore(false) : setLoadingMore(true);
+      setLoadingMore(false);
       setIsLoading(true);
       setArticles([]);
       setSearch(SEARCH_VALUE);
       setPage(1);
-
       setError(false);
       setLoading(true);
 
       const data = await fetchArticlesWithTopic(SEARCH_VALUE, 1);
+
       setArticles(data.results);
       setTotalPage(data.total_pages);
+
+      console.log(data.total_pages);
+      console.log(totalPage);
 
       if (!data.total) {
         toast(
           "Sorry, we have not found the photos for your request. Try to write it differently.",
           { duration: 5000 }
         );
+        setLoadingMore(false);
+        setTotalPage(0);
         return;
       }
 
       toast.success(`Wow! We found ${data.total} pictures`);
+
+      data.total_pages > 1 && setLoadingMore(true);
     } catch (error) {
       toast.error("This didn't work.");
+      setLoadingMore(false);
       setError(true);
     } finally {
-      page === totalPage ? setLoadingMore(false) : setLoadingMore(true);
       setIsLoading(false);
       setLoading(false);
     }
@@ -137,22 +144,25 @@ function App() {
       setIsLoading(true);
       setLoading(true);
       const nextLoad = page + 1;
-      page === totalPage ? setLoadingMore(false) : setLoadingMore(true);
+      setPage(nextLoad);
       const data = await fetchArticlesWithTopic(search, nextLoad);
       setArticles((prevImages) => {
         return [...prevImages, ...data.results];
       });
-      setPage(nextLoad);
+      if (nextLoad >= totalPage) {
+        setLoadingMore(false);
+      }
     } catch (error) {
       toast.error("This didn't work.");
       setLoadingMore(false);
       setError(true);
     } finally {
-      page === totalPage ? setLoadingMore(false) : setLoadingMore(true);
       setIsLoading(false);
       setLoading(false);
     }
   };
+
+  console.log(page);
 
   const openModal = (image) => {
     setSelectedImage(image);
