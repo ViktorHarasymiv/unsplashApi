@@ -1,0 +1,27 @@
+.scroll_tile {
+  z-index: 9999;
+  cursor: pointer;
+
+  position: fixed;
+
+  right: 30px;
+  bottom: 30px;
+
+  border-radius: 50px;
+
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+
+  background-color: rgba(255, 255, 255, 0.5);
+
+  padding: 10px;
+
+  transition: all 0.3s linear;
+}
+
+.scroll_tile svg {
+  fill: rgba(0, 0, 0, 1);
+}
+
+.scroll_tile:hover {
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+}

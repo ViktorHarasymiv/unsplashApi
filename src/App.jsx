@@ -16,6 +16,7 @@ import FAVORITE_DATA from "./components/Favorite/DATA.json";
 
 // COMPONENTS
 
+import Scroll from "./components/ScrollButton/Scroll";
 import Header from "./components/Header/Header";
 import ArticleList from "./components/Gallery/Gallery";
 import Loader from "./components/Loader/Loader";
@@ -236,12 +237,29 @@ function App() {
     setActiveButton(active);
   };
 
+  // Scroll setup
+
+  const [height, setHeight] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      let pageHeight = window.scrollY;
+      setHeight(pageHeight);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
   return (
     <>
       {loading && <Loader />}
 
       <Toaster position="top-left" reverseOrder={false} />
-
+      {height > 300 && <Scroll />}
       <Header
         favorites={like}
         setFavorites={setLike}
