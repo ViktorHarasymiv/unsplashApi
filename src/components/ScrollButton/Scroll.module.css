@@ -1,5 +1,5 @@
 .scroll_tile {
-  z-index: 9999;
+  z-index: 1019;
   cursor: pointer;
 
   position: fixed;

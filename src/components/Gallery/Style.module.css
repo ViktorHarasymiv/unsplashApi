@@ -30,6 +30,7 @@
   height: 100% !important;
 
   object-fit: cover;
+  object-position: 5%;
 }
 
 /*  BACKDROP  */
@@ -171,6 +172,9 @@
 
   width: 100%;
   height: 75vh;
+
+  object-fit: cover;
+  object-position: 10%;
 }
 
 .galleryItem {

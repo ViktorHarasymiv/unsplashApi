@@ -1,13 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import Modal from "react-modal";
 
 import css from "./Style.module.css";
 
 import { IoCloseOutline } from "react-icons/io5";
-import { FaHeart } from "react-icons/fa";
 import { RxExternalLink } from "react-icons/rx";
-import { BiBorderRadius } from "react-icons/bi";
-import { CgOverflow } from "react-icons/cg";
 
 const customStyles = {
   overlay: {
@@ -48,7 +45,7 @@ function ModalPage({ isOpen, setClose, image }) {
       isOpen={isOpen}
       ariaHideApp={false}
       style={customStyles}
-      contentLabel="Example Modal"
+      contentLabel="Image Modal"
     >
       {image && (
         <div className={css.modal_wrapper}>

@@ -163,8 +163,6 @@ function App() {
     }
   };
 
-  console.log(page);
-
   const openModal = (image) => {
     setSelectedImage(image);
     setModalIsOpen(true);
